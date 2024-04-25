@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% extends "home.html" %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>{{ platform.title }}</h1>
+        <p><strong>Property Type:</strong> {{ platform.property_type }}</p>
+        <p><strong>Price: $</strong> {{ platform.price }}</p>
+        <p><strong>Size:</strong> {{ platform.size_sqft }} sqft</p>
+        <p><strong>Year Built:</strong> {{ platform.year_built }}</p>
+        <p><strong>Location:</strong> {{ platform.location }}</p>
+        <p><strong>City:</strong> {{ platform.city }}</p>
+        <p><strong>Country:</strong> {{ platform.country }}</p>
+        <p><strong>Listed Date:</strong> {{ platform.listed_date }}</p>
+
+        <br> <br>
+        <h2>Contact the Owner for more Informations</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+          <input type="submit" value="Send Inquiry" class="btn btn-info">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+            <a href="{% url 'search' %}" class="btn btn-secondary ml-2">Back to Search</a>
+        </form>
+    </div>
+
+{% endblock %}
+</body>
+</html>

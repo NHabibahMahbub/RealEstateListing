@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+ <!-- Navbar -->
+   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Real Estate Listing Platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+ <br>
+ <br>
+  <br>
+    <!-- Render the search form -->
+    <form method="get" action="{% url 'search' %}" align = 'center'>
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    <h2>Search Results</h2>
+
+
+    {% if results %}
+
+
+        <ul>
+            {% for result in results %}
+                <li>{{ result.title }} - {{ result.property_type }} - {{ result.city }} - {{ result.country }}</li>
+                   <a href="{% url 'details' result.id %}" class="text-blue-500">
+        View details </a>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+<br> <br>
+    <br>
+    <br> <br>
+    <br>
+        <a href= "{% url 'home'  %}" > Back to Home</a>
+
+
+  <!-- Link to Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStv5KS5m7O9x94DS6z3HI3ZlM3z4bO8o6Amv9F4mc7"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-nfwJqRRjVv1jQOogXuoLduXW3IVyjxdR6zSwDRRgd6aFCx8df7f9mqpI6C27hD"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy9G3Bl9/6xgWl1Z5hOu1N1hjVfUrIlto64L0w"
+            crossorigin="anonymous"></script>
+</body>
+</html>

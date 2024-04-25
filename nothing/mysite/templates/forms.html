@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "home.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+</head>
+<body>
+<b>
+ <h1 class="text-4xl text-gray-900"  style="color:Teal; font-family:courier; font-size:200%;">Platform Details</h1></b>
+<div class="container mt-4">
+<form method = "GET" enctype="multipart/form-data">
+<br>
+    {% csrf_token %}
+    <b>
+    {{ form.as_p }}</b>
+    <button type = "submit" value = "OK" class="btn btn-info"> Submit</button>
+</form>
+    <br>
+    <br>
+ <a href="{% url 'home' %}" class= " btn btn-outline-success" >Back to Home</a>
+{% endblock %}
+</body>
+</html>

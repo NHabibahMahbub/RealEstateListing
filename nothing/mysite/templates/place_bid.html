@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Bidding</title>
+</head>
+<body>
+
+    <h1>Place a Bid on {{ platform.title }}</h1>
+        <form method = "POST">
+
+            <div>
+                {% csrf_token %}
+    <b>
+    {{ form.as_p }}</b>
+                <button type="submit" class="btn btn-info" step="0.1"> Submit Bid</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "home.html" %}
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <Title>Welcome to Your Real Estate Dashboard</Title>
+</head>
+<body>
+<h1 class="text-4xl text-gray-900"  align= "center"  style="color:Teal; font-family:courier; font-size:200%;">Welcome to Your Real Estate Dashboard</h1>
+
+<h2>Your Inquiries:</h2>
+{% if inquiry %}
+    <table>
+        <tr>
+            <th>Property</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date</th>
+        </tr>
+        {% for inquiry in inquiry %}
+            <tr>
+                <td>{{ inquiry.property.title }}</td>
+                <td>{{ inquiry.name }}</td>
+                <td>{{ inquiry.email }}</td>
+                <td>{{ inquiry.message }}</td>
+                <td>{{ inquiry.date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>You have no new inquiries at this time.</p>
+{% endif %}
+ <br><br><br><br><br><br>
+ <div>
+        <a  class="btn btn-secondary" type="button" href="{% url 'home' %}">Return to the home page</a>
+    </div>
+<!-- Add any other content for the home page here -->
+{% endblock %}
+</body>
+</html>

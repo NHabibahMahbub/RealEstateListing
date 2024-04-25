@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=10.0">
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="tw-bg-red-500">
+
+     <!-- Navbar -->
+   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Real Estate Listing Platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+
+      <!-- Logout -->
+
+<br> <br>
+    <div class="tailwind-section tw-p-4">
+      <script src="https://cdn.tailwindcss.com?data-tw-prefix=tw-"></script>
+<div class="mx-auto max-w-5xl px-4 py-4">
+    {% block content %}
+<h2 align="right">
+    <a href="{% url 'logout' %}"
+       class="text-teal-300;
+       btn btn-light
+        btn btn-outline-primary"
+       style = "font-size:100%
+       font-family:Cambria;"
+       class="dropdown-link">
+
+        <svg version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+       width="28" height="25" viewBox="6 0 18 40" >
+
+
+          <title>Log Out</title>
+            <path
+                    d="M3 0h22c0.553 0 1 0 1 0.553l-0 3.447h-2v-2h-20v28h20v-2h2l0 3.447c0 0.553-0.447 0.553-1 0.553h-22c-0.553 0-1-0.447-1-1v-30c0-0.553 0.447-1 1-1z">
+            </path>
+        <path
+                d="M21.879 21.293l1.414 1.414 6.707-6.707-6.707-6.707-1.414 1.414 4.293 4.293h-14.172v2h14.172l-4.293 4.293z">
+        </path>
+    </svg>Log Out</a>
+</h2>
+
+
+    <div class="roomList">
+
+     <p align= "left"
+   >
+           <!-- Search -->
+
+        <form action="{% url 'search' %}" method="GET" class="header__search">
+            {% csrf_token %}
+             {{ form.as_p }}
+          <label>
+
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="25" height="15" viewBox="0 0 25 32">
+              <title>Search</title>
+              <path
+                d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z">
+              </path>
+            </svg>
+
+            <input type="text" name="query" placeholder="Search Platforms" />
+              <button type="submit" class="btn btn-outline-info" >Search</button>
+          </label>
+        </form>
+  </p>
+
+
+  <!-- Filters -->
+<br>
+    <a href="{% url 'filters' %}">
+        <u><b>
+       Filter
+</b> </u>
+
+          <!-- Inquiries -->
+<a href="{% url 'inquiries' %}" class="text-blue-500 flex justify-center">     View Your Inquiries</a>
+
+          <!-- Add Platform -->
+  <a href="{% url 'add-platform' %}" class="text-blue-500" style="font-size: 120%;">
+            <title>add</title>
+<u><b>
+        Add Platform
+</b> </u> </a>
+      </div>
+
+
+  <!-- Details -->
+{% for i in platform %}
+<br>
+<div class="mt-1 px-7 py-1 bg-gray-100 rounded-sm">
+    <h3 style = font-family:Perpetua; class="text-3xl text-gray-900">{{ i.title }}</h3>
+    <img src="{{ i.image.url }}" alt="{{ i.title }}" align = "right" style="max-width: 23%; height: 22%;">
+    <p class="text-gray-900">BDT {{ i.price }}</p>
+    <p class="text-gray-700 text-sm">{{ i.location }}</p>
+
+    <a href="{% url 'details' i.id %}" class="text-blue-500">Inspect further</a> <br>
+
+              <!-- Bidding-->
+        <a href="{% url 'place_bid' i.id %}" class="text-blue-500">Bid Now</a>
+
+    <!-- Display bid information -->
+    {% if platform_bids.i %}
+        <p class="text-green-500">Highest Bid: ${{ platform_bids.i.amount }}</p>
+    {% else %}
+        <p class="text-gray-500">No bids yet</p>
+    {% endif %}
+
+  <!-- Update & Delete Platform -->
+    {% if request.user.is_staff %}
+    <div class="mt-2 py-2 border-t border-gray-200">
+        <a href="{% url 'update-platform' i.id %}" class="text-blue-500">Update</a>
+
+       <a href="{% url 'delete-platform' i.id %}" class="text-blue-500">Delete</a> <br>
+
+
+
+    </div>
+    {% endif %}
+</div>
+
+
+        {% endfor %} <br>
+    {% endblock content %}
+</div>
+
+</div>
+
+
+  <!-- Link to Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStv5KS5m7O9x94DS6z3HI3ZlM3z4bO8o6Amv9F4mc7"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-nfwJqRRjVv1jQOogXuoLduXW3IVyjxdR6zSwDRRgd6aFCx8df7f9mqpI6C27hD"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy9G3Bl9/6xgWl1Z5hOu1N1hjVfUrIlto64L0w"
+            crossorigin="anonymous"></script>
+
+    </div>
+</body>
+</html>
